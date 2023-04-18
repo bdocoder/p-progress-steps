@@ -1,0 +1,106 @@
+:root {
+  --thickness: 3px;
+  --step-gap: 5rem;
+  --color-light: #f6f7fb;
+  --color-primary: #3498db;
+  --color-secondary: #e0e0e0;
+}
+
+body {
+  background-color: var(--color-light);
+  font-family: sans-serif;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  gap: var(--step-gap);
+
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.step {
+  background-color: white;
+  color: #999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 24px;
+  height: 24px;
+
+  border: var(--thickness) solid var(--color-secondary);
+  border-radius: 50%;
+
+  transition-property: border-color;
+}
+
+.step.active {
+  border-color: var(--color-primary);
+}
+
+.steps::before,
+.progress {
+  content: "";
+  position: absolute;
+
+  top: 50%;
+  transform: translateY(-50%);
+  height: var(--thickness);
+}
+
+.steps::before {
+  z-index: -2;
+  width: 100%;
+  background-color: var(--color-secondary);
+}
+
+.progress {
+  z-index: -1;
+  background-color: var(--color-primary);
+  transition-property: width;
+}
+
+.progress,
+.step {
+  transition-duration: 0.4s;
+  transition-timing-function: ease;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.button {
+  color: white;
+  background-color: var(--color-primary);
+
+  border: none;
+  border-radius: 6px;
+
+  padding: 8px 30px;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.button:not(:disabled):active {
+  transform: scale(0.95);
+}
+
+.button:disabled {
+  background-color: var(--color-secondary);
+  cursor: not-allowed;
+}

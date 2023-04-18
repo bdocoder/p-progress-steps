@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Steps</title>
+    <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="steps">
+        <div class="progress"></div>
+        <div class="step active">1</div>
+        <div class="step">2</div>
+        <div class="step">3</div>
+        <div class="step">4</div>
+      </div>
+      <div class="buttons">
+        <button id="prev" class="button">Prev</button>
+        <button id="next" class="button">Next</button>
+      </div>
+    </div>
+
+    <script>
+      const progress = document.querySelector(".progress");
+      const steps = document.querySelectorAll(".step");
+      const prevButton = document.querySelector("#prev");
+      const nextButton = document.querySelector("#next");
+
+      let lastActiveIndex = 0;
+
+      const updateProgress = () => {
+        const activeSteps = document.querySelectorAll(".step.active");
+        progress.style.width =
+          ((activeSteps.length - 1) * 100) / (steps.length - 1) + "%";
+      };
+
+      const updateButtons = () => {
+        const isFirst = lastActiveIndex === 0;
+        const isLast = lastActiveIndex === steps.length - 1;
+        console.log(isFirst);
+        console.log(isLast);
+        prevButton.disabled = isFirst;
+        nextButton.disabled = isLast;
+      };
+
+      prevButton.addEventListener("click", () => {
+        if (lastActiveIndex > 0) {
+          lastActiveIndex--;
+          steps.item(lastActiveIndex + 1).classList.toggle("active");
+          updateProgress();
+          updateButtons();
+        }
+      });
+
+      nextButton.addEventListener("click", () => {
+        if (lastActiveIndex < steps.length - 1) {
+          lastActiveIndex++;
+          steps.item(lastActiveIndex).classList.toggle("active");
+          updateProgress();
+          updateButtons();
+        }
+      });
+
+      updateProgress();
+      updateButtons();
+    </script>
+  </body>
+</html>
